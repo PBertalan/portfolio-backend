@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>12.4.1.jre8</version>
+			<version>12.8.0.jre8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
+			<version>1.18.34</version>
 		</dependency>
 	</dependencies>
 
