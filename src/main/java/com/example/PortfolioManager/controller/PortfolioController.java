@@ -2,7 +2,7 @@ package com.example.PortfolioManager.controller;
 
 import com.example.PortfolioManager.dto.PortfolioRequestDTO;
 import com.example.PortfolioManager.model.Portfolio;
-import com.example.PortfolioManager.service.impl.PortfolioServiceImpl;
+import com.example.PortfolioManager.service.PortfolioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PortfolioController {
 
-    private final PortfolioServiceImpl portfolioService;
+    private final PortfolioService portfolioService;
 
     @PostMapping
     public ResponseEntity<Portfolio> create(@RequestBody @Valid PortfolioRequestDTO request) {

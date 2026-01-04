@@ -2,7 +2,7 @@ package com.example.PortfolioManager.controller;
 
 import com.example.PortfolioManager.dto.PortfolioRequestDTO;
 import com.example.PortfolioManager.model.Portfolio;
-import com.example.PortfolioManager.service.impl.PortfolioServiceImpl;
+import com.example.PortfolioManager.service.PortfolioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class PortfolioControllerTest {
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    private PortfolioServiceImpl portfolioService;
+    private PortfolioService portfolioService;
 
     @Test
     @DisplayName("POST /api/portfolio should return saved portfolio")
