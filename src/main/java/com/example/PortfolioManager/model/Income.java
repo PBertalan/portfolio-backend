@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -40,8 +40,9 @@ public class Income {
     @Column(name = "type", length = 100)
     private String type;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Builder.Default
+    @Column(name = "date", nullable = false, columnDefinition = "datetime2")
+    private LocalDateTime date = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id", nullable = false)

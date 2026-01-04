@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class Portfolio {
 
     @Column(name = "description", length = 500)
     private String description;
+
+    @Builder.Default
+    @Column(name = "date", nullable = false, columnDefinition = "datetime2")
+    private LocalDateTime date = LocalDateTime.now();
 
     @OneToMany(mappedBy = "portfolio")
     @ToString.Exclude
