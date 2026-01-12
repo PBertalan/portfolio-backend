@@ -1,11 +1,11 @@
 package com.example.PortfolioManager.service;
 
-import com.example.PortfolioManager.dto.ExpenseRequestDTO;
-import com.example.PortfolioManager.model.Expense;
+import com.example.PortfolioManager.dto.IncomeRequestDTO;
+import com.example.PortfolioManager.model.Income;
 import com.example.PortfolioManager.model.Portfolio;
-import com.example.PortfolioManager.repository.ExpenseRepository;
+import com.example.PortfolioManager.repository.IncomeRepository;
 import com.example.PortfolioManager.repository.PortfolioRepository;
-import com.example.PortfolioManager.service.impl.ExpenseServiceImpl;
+import com.example.PortfolioManager.service.impl.IncomeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,55 +22,55 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ExpenseServiceImplTest {
+class IncomeServiceImplTest {
 
     @Mock
-    private ExpenseRepository expenseRepository;
+    private IncomeRepository incomeRepository;
 
     @Mock
     private PortfolioRepository portfolioRepository;
 
     @InjectMocks
-    private ExpenseServiceImpl expenseService;
+    private IncomeServiceImpl incomeService;
 
     private Portfolio portfolio;
 
     @BeforeEach
     void setUp() {
-        portfolio = Portfolio.builder().id(10L).name("P1").build();
+        portfolio = Portfolio.builder().id(11L).name("Income PF").build();
     }
 
     @Test
-    void createExpense_shouldPersistWithPortfolio() {
-        ExpenseRequestDTO dto = new ExpenseRequestDTO();
-        dto.setAmount(new BigDecimal("12.34"));
-        dto.setDescription("Coffee");
-        dto.setType("Food");
+    void createIncome_shouldPersistWithPortfolio() {
+        IncomeRequestDTO dto = new IncomeRequestDTO();
+        dto.setAmount(new BigDecimal("1500.00"));
+        dto.setDescription("Salary");
+        dto.setType("Job");
         dto.setPortfolioId(portfolio.getId());
 
         when(portfolioRepository.findById(portfolio.getId())).thenReturn(Optional.of(portfolio));
-        Expense saved = Expense.builder()
-                .id(1L)
+        Income saved = Income.builder()
+                .id(2L)
                 .amount(dto.getAmount())
                 .portfolio(portfolio)
-                .date(LocalDateTime.of(2024, 1, 1, 0, 0))
+                .date(LocalDateTime.of(2024, 2, 1, 0, 0))
                 .build();
-        when(expenseRepository.save(org.mockito.ArgumentMatchers.any(Expense.class))).thenReturn(saved);
+        when(incomeRepository.save(org.mockito.ArgumentMatchers.any(Income.class))).thenReturn(saved);
 
-        Expense result = expenseService.createExpense(dto);
+        Income result = incomeService.createIncome(dto);
 
         assertThat(result).isEqualTo(saved);
 
     }
 
     @Test
-    void createExpense_whenPortfolioMissing_shouldThrow() {
-        ExpenseRequestDTO dto = new ExpenseRequestDTO();
-        dto.setAmount(new BigDecimal("1.00"));
+    void createIncome_whenPortfolioMissing_shouldThrow() {
+        IncomeRequestDTO dto = new IncomeRequestDTO();
+        dto.setAmount(new BigDecimal("10.00"));
         dto.setPortfolioId(999L);
 
         when(portfolioRepository.findById(999L)).thenReturn(Optional.empty());
 
-        assertThrows(jakarta.persistence.EntityNotFoundException.class, () -> expenseService.createExpense(dto));
+        assertThrows(jakarta.persistence.EntityNotFoundException.class, () -> incomeService.createIncome(dto));
     }
 }
