@@ -14,10 +14,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PortfolioRepository portfolioRepository;
 
     public Portfolio createPortfolio(PortfolioRequestDTO dto) {
-        final Portfolio portfolio = Portfolio.builder()
+        final Portfolio portfolio = buildPortfolio(dto);
+        return portfolioRepository.save(portfolio);
+    }
+
+    private Portfolio buildPortfolio(PortfolioRequestDTO dto) {
+        return Portfolio.builder()
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .build();
-        return portfolioRepository.save(portfolio);
     }
 }
